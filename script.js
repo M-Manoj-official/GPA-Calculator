@@ -1,4 +1,4 @@
-// Dropdown suggestions for course input
+// Creating suggestions for course name
 const subjectInput = document.getElementById('subject');
 const courseDropdown = document.getElementById('courseDropdown');
 
@@ -50,7 +50,7 @@ subjectInput.addEventListener('blur', () => {
     setTimeout(hideSuggestions, 150);
 });
 
-// Dropdown function for grade input
+// Creating suggestions for grade input
 const gradeInput = document.getElementById('grade');
 const gradeDropdown = document.getElementById('gradeDropdown');
 
@@ -95,8 +95,7 @@ gradeInput.addEventListener('blur', () => {
     setTimeout(hideGradeSuggestions, 150);
 });
 
-// Function to handle entry of subject, credit, and grade
-
+// Adding inputs to the table
 const entryButton = document.getElementById('entry');
 const subjectList = document.getElementById('subject-list');
 const subjectName = document.getElementById('sname');
@@ -139,6 +138,7 @@ entryButton.addEventListener('click', () => {
     saveTableData();
 });
 
+// Resetting the table using button
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', () => {
     subjectList.innerHTML = '';
@@ -148,8 +148,8 @@ resetButton.addEventListener('click', () => {
     totalGradePoints.textContent = "Total Grade Points: 0";
     alert("Table has been reset.");
 });
-// Function to calculate GPA
 
+// Calculating GPA
 const gpaButton = document.getElementById('getGpa');
 const gpapercentage = document.getElementById('gpa');
 const totalCredits = document.getElementById('tcredits');
@@ -187,6 +187,7 @@ gpaButton.addEventListener('click', () => {
     totalGradePoints.textContent = `Total Grade Points: ${totalGradePointsValue}`;
 });
 
+// Saving and loading table data to/from localStorage
 function saveTableData() {
     const rows = Array.from(subjectList.querySelectorAll('tr')).map(row => {
         const cells = row.querySelectorAll('td');
