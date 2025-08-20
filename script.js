@@ -71,7 +71,7 @@ const gradeSuggestions = {
 
 function showGradeSuggestions() {
     gradeDropdown.innerHTML = '';
-    
+
     Object.keys(gradeSuggestions).forEach(grade => {
         const item = document.createElement('div');
         item.classList.add('dropdown-item');
@@ -82,7 +82,7 @@ function showGradeSuggestions() {
         });
         gradeDropdown.appendChild(item);
     });
-    
+
     gradeDropdown.classList.add('show');
 }
 
@@ -99,7 +99,7 @@ gradeInput.addEventListener('blur', () => {
 const entryButton = document.getElementById('entry');
 const subjectList = document.getElementById('subject-list');
 const subjectName = document.getElementById('sname');
-const creditHours = document.getElementById('credit'); 
+const creditHours = document.getElementById('credit');
 const gradeScore = document.getElementById('grade-score');
 
 entryButton.addEventListener('click', () => {
@@ -112,7 +112,7 @@ entryButton.addEventListener('click', () => {
         return;
     }
 
-    if(isNaN(credit) || credit <= 0 || credit > 4) {
+    if (isNaN(credit) || credit <= 0 || credit > 4) {
         alert("Please enter a valid number for credit hours.");
         return;
     }
@@ -128,9 +128,9 @@ entryButton.addEventListener('click', () => {
         <td>${credit}</td>
         <td>${grade}</td>
     `;
-    
+
     subjectList.appendChild(newRow);
-    
+
     subjectInput.value = '';
     creditHours.value = '';
     gradeInput.value = '';
@@ -181,7 +181,7 @@ gpaButton.addEventListener('click', () => {
     }
 
     const gpa = (totalGradePointsValue / totalCreditsValue).toFixed(2);
-    
+
     gpapercentage.textContent = `GPA: ${gpa}`;
     totalCredits.textContent = `Total Credits: ${totalCreditsValue}`;
     totalGradePoints.textContent = `Total Grade Points: ${totalGradePointsValue}`;
@@ -215,3 +215,16 @@ function loadTableData() {
 }
 
 window.addEventListener('DOMContentLoaded', loadTableData);
+
+// Info Modal
+document.addEventListener('DOMContentLoaded', function () {
+    const infoLi = document.querySelector('.nav-container ul li');
+    const modal = document.getElementById('infoModal');
+    const closeBtn = document.getElementById('closeInfoModal');
+    if (infoLi && modal && closeBtn) {
+        infoLi.style.cursor = 'pointer';
+        infoLi.onclick = () => { modal.style.display = 'flex'; };
+        closeBtn.onclick = () => { modal.style.display = 'none'; };
+        modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+    }
+});
