@@ -135,6 +135,8 @@ entryButton.addEventListener('click', () => {
     subjectInput.value = '';
     creditHours.value = '';
     gradeInput.value = '';
+
+    saveTableData(); // Save after adding
 });
 
 // Function to calculate GPA
@@ -175,3 +177,34 @@ gpaButton.addEventListener('click', () => {
     totalCredits.textContent = `Total Credits: ${totalCreditsValue}`;
     totalGradePoints.textContent = `Total Grade Points: ${totalGradePointsValue}`;
 });
+
+// Helper: Save table data to localStorage
+function saveTableData() {
+    const rows = Array.from(subjectList.querySelectorAll('tr')).map(row => {
+        const cells = row.querySelectorAll('td');
+        return {
+            subject: cells[0].textContent,
+            credit: cells[1].textContent,
+            grade: cells[2].textContent
+        };
+    });
+    localStorage.setItem('gpaTableData', JSON.stringify(rows));
+}
+
+// Helper: Load table data from localStorage
+function loadTableData() {
+    const data = JSON.parse(localStorage.getItem('gpaTableData') || '[]');
+    subjectList.innerHTML = '';
+    data.forEach(item => {
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${item.subject}</td>
+            <td>${item.credit}</td>
+            <td>${item.grade}</td>
+        `;
+        subjectList.appendChild(newRow);
+    });
+}
+
+// Call loadTableData on page load
+window.addEventListener('DOMContentLoaded', loadTableData);
