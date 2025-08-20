@@ -13,7 +13,7 @@
         </div>
         <div>
             <ul>
-                <li>info</li>
+                <li><button id="infoBtn" type="button">info</button></li>
             </ul>
         </div>
     </nav>
@@ -21,23 +21,23 @@
     <p>easy way to calculate your GPA !</p>
     <div class="input-output">
         <div class="input-container">
-        <div class="input">
-            <div class="input-container">
-                <label for="subject">Enter Subject Name</label>
-                <input type="text" id="subject" placeholder="e.g. PYTHON">
-                <div id="courseDropdown" class="dropdown-content"></div>
+            <div class="input">
+                <div class="input-container">
+                    <label for="subject">Enter Subject Name</label>
+                    <input type="text" id="subject" placeholder="e.g. PYTHON">
+                    <div id="courseDropdown" class="dropdown-content"></div>
+                </div>
+                <div>
+                    <label for="credit">Enter Credit Hours</label>
+                    <input type="text" id="credit" placeholder="e.g. 3">
+                </div>
+                <div>
+                    <label for="grade">Enter your Grade</label>
+                    <input type="text" id="grade" placeholder="e.g. A, B, C">
+                    <div id="gradeDropdown" class="dropdown-content"></div>
+                </div>
+                <button id="entry">ENTER</button>
             </div>
-            <div>
-                <label for="credit">Enter Credit Hours</label>
-                <input type="text" id="credit" placeholder="e.g. 3">
-            </div>
-            <div>
-                <label for="grade">Enter your Grade</label>
-                <input type="text" id="grade" placeholder="e.g. A, B, C">
-                <div id="gradeDropdown" class="dropdown-content"></div>
-            </div>
-            <button id="entry">ENTER</button>
-        </div>
         </div>
         <div class="output-container">
             <table>
@@ -49,20 +49,18 @@
                     </tr>
                 </thead>
                 <tbody id="subject-list">
-
                 </tbody>
             </table>
             <button id="getGpa">GET GPA!</button>
             <button id="reset">Reset Table</button>
         </div>
-</div>
+    </div>
     <div>
         <h2>RESULT</h2>
         <h4 id="gpa"></h4>
         <h4 id="tcredits"></h4>
         <h4 id="tgp"></h4>
     </div>
-
     <div id="infoModal" class="modal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); align-items:center; justify-content:center;">
         <div style="background:#fff; padding:24px; border-radius:8px; max-width:350px; margin:auto; position:relative;">
             <button id="closeInfoModal" style="position:absolute; top:8px; right:12px; background:none; border:none; font-size:20px; cursor:pointer;">&times;</button>
