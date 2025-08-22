@@ -106,35 +106,29 @@ entryButton.addEventListener('click', () => {
     const subject = subjectInput.value.trim();
     const credit = parseInt(creditHours.value.trim());
     const grade = gradeInput.value.trim().toUpperCase();
-
     if (!subject || !credit || !grade || !gradeSuggestions[grade]) {
         alert("Please fill in all fields correctly.");
         return;
     }
-
     if (isNaN(credit) || credit <= 0 || credit > 4) {
         alert("Please enter a valid number for credit hours.");
         return;
     }
-
     if (!subjectList || subjectList.tagName !== 'TBODY') {
         alert("Table body (tbody) with id 'subject-list' not found.");
         return;
     }
-
     const newRow = document.createElement('tr');
     newRow.innerHTML = `
         <td>${subject}</td>
         <td>${credit}</td>
         <td>${grade}</td>
+        <td><button class="remove-btn">Remove</button></td>
     `;
-
     subjectList.appendChild(newRow);
-
     subjectInput.value = '';
     creditHours.value = '';
     gradeInput.value = '';
-
     saveTableData();
 });
 
@@ -159,29 +153,24 @@ gpaButton.addEventListener('click', () => {
     const rows = subjectList.querySelectorAll('tr');
     let totalCreditsValue = 0;
     let totalGradePointsValue = 0;
-
     rows.forEach(row => {
         const cells = row.querySelectorAll('td');
         if (cells.length < 3) return;
-
         const credit = parseInt(cells[1].textContent);
         const grade = cells[2].textContent.trim().toUpperCase();
-
         if (isNaN(credit) || !gradeSuggestions[grade]) return;
-
+        // Skip calculation if grade is 'F'
+        if (grade === 'F') return;
         totalCreditsValue += credit;
         totalGradePointsValue += credit * gradeSuggestions[grade].point;
     });
-
     if (totalCreditsValue === 0) {
         gpapercentage.textContent = "GPA: 0.00";
         totalCredits.textContent = "Total Credits: 0";
         totalGradePoints.textContent = "Total Grade Points: 0";
         return;
     }
-
     const gpa = (totalGradePointsValue / totalCreditsValue).toFixed(2);
-
     gpapercentage.textContent = `GPA: ${gpa}`;
     totalCredits.textContent = `Total Credits: ${totalCreditsValue}`;
     totalGradePoints.textContent = `Total Grade Points: ${totalGradePointsValue}`;
@@ -209,6 +198,7 @@ function loadTableData() {
             <td>${item.subject}</td>
             <td>${item.credit}</td>
             <td>${item.grade}</td>
+            <td><button class="remove-btn">Remove</button></td>
         `;
         subjectList.appendChild(newRow);
     });
@@ -226,5 +216,16 @@ document.addEventListener('DOMContentLoaded', function () {
         infoLi.onclick = () => { modal.style.display = 'flex'; };
         closeBtn.onclick = () => { modal.style.display = 'none'; };
         modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+    }
+});
+
+const removeButtons = document.getElementById('remove-btn');
+subjectList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('remove-btn')) {
+        const row = event.target.closest('tr');
+        if (row) {
+            row.remove();
+            saveTableData();
+        }
     }
 });
