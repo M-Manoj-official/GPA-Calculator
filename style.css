@@ -4,6 +4,7 @@ body {
     background-size: cover;
     border-radius: 10px;
     color: white;
+    padding: 10px;
 }
 
 body>h1 {
@@ -343,7 +344,7 @@ p {
     }
 
     .result-container {
-        width: 100%;
+        width: auto;
     }
 
     .nav-container {
