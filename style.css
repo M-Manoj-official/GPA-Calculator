@@ -334,6 +334,21 @@ p {
         max-width: 300px;
     }
 
+    .dropdown-content {
+    position: absolute;
+    margin-top: 70px;
+    margin-left: 0px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+    border: none;
+    border-radius: 6px;
+    width: 63%;
+    max-height: 100px;
+    overflow-y: auto;
+    z-index: 100;
+    } 
+
+
 
     .output-container {
         width: 100%;
