@@ -225,6 +225,7 @@ p {
     background-color: #c300ff;
     color: #ffffff;
 }
+
 .result-container {
     display: flex;
     flex-direction: column;
@@ -332,9 +333,6 @@ p {
         max-width: 300px;
     }
 
-    .input-container button {
-        width: 100%;
-    }
 
     .output-container {
         width: 100%;
@@ -349,7 +347,7 @@ p {
     }
 
     .nav-container {
-        flex-direction: column;
+        flex-direction: row;
         align-items: flex-start;
     }
 
