@@ -3,14 +3,26 @@ const subjectInput = document.getElementById('subject');
 const courseDropdown = document.getElementById('courseDropdown');
 
 const courseSuggestions = [
+    { name: "BUSINESS ACCOUNTS", credit: 4 },
+    { name: "C", credit: 4 },
+    { name: "C++", credit: 4 },
+    { name: "C++ LAB", credit: 3 },
+    { name: "DATA BASE MANAGEMENT SYSTEMS", credit: 4 },
+    { name: "DATA STRUCTURES", credit: 3 },
+    { name: "ENGLISH", credit: 2 },
+    { name: "LINUX", credit: 4 },
+    { name: "LINUX LAB", credit: 4 },
+    { name: "MATHEMATICS", credit: 3 },
+    { name: "ORACLE", credit: 3 },
     { name: "PYTHON", credit: 3 },
+    { name: "SOFTWARE MANAGEMENT", credit: 3 },
     { name: "SOFTWARE TESTING", credit: 4 },
+    { name: "SSOS", credit: 3 },
+    { name: "TAMIL", credit: 2 },
     { name: "VISUAL BASICS", credit: 3 },
     { name: "VISUAL BASICS LAB", credit: 4 },
-    { name: "ORACLE", credit: 3 },
-    { name: "ORACLE LAB", credit: 4 },
-    { name: "TAMIL", credit: 2 },
-    { name: "ENGLISH", credit: 2 }
+    { name: "JAVA PROGRAMMING", credit: 3 },
+    { name: "JAVA PROGRAMMING LAB", credit: 4 }
 ];
 
 function filterCourseSuggestions() {
@@ -55,18 +67,14 @@ const gradeInput = document.getElementById('grade');
 const gradeDropdown = document.getElementById('gradeDropdown');
 
 const gradeSuggestions = {
-    "A": { point: 4.0, weight: 1 },
-    "A-": { point: 3.7, weight: 1 },
-    "B+": { point: 3.3, weight: 1 },
-    "B": { point: 3.0, weight: 1 },
-    "B-": { point: 2.7, weight: 1 },
-    "C+": { point: 2.3, weight: 1 },
-    "C": { point: 2.0, weight: 1 },
-    "C-": { point: 1.7, weight: 1 },
-    "D+": { point: 1.3, weight: 1 },
-    "D": { point: 1.0, weight: 1 },
-    "D-": { point: 0.7, weight: 1 },
-    "F": { point: 0.0, weight: 0 }
+    "O": { point: 10.0, weight: 1 },
+    "D+": { point: 9.0, weight: 1 },
+    "D": { point: 8.0, weight: 1 },
+    "A+": { point: 7.0, weight: 1 },
+    "A": { point: 6.0, weight: 1 },
+    "B": { point: 5.0, weight: 1 },
+    "U": { point: 0.0, weight: 0 },
+    "ABSENT": { point: 0.0, weight: 0 },
 };
 
 function showGradeSuggestions() {
@@ -106,6 +114,10 @@ entryButton.addEventListener('click', () => {
     const subject = subjectInput.value.trim();
     const credit = parseInt(creditHours.value.trim());
     const grade = gradeInput.value.trim().toUpperCase();
+
+    // Debugging: Log the values
+    console.log(`Subject: ${subject}, Credit: ${credit}, Grade: ${grade}`);
+
     if (!subject || !credit || !grade || !gradeSuggestions[grade]) {
         alert("Please fill in all fields correctly.");
         return;
@@ -122,7 +134,7 @@ entryButton.addEventListener('click', () => {
     newRow.innerHTML = `
         <td>${subject}</td>
         <td>${credit}</td>
-        <td>${grade}</td>
+        <td class="editable-grade">${grade}</td>
         <td><button class="remove-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
         </svg></button></td>
@@ -161,8 +173,10 @@ gpaButton.addEventListener('click', () => {
         const credit = parseInt(cells[1].textContent);
         const grade = cells[2].textContent.trim().toUpperCase();
         if (isNaN(credit) || !gradeSuggestions[grade]) return;
-        // Skip calculation if grade is 'F'
-        if (grade === 'F') return;
+
+        // Corrected condition to skip 'U' and 'ABSENT'
+        if (grade === 'U' || grade === 'ABSENT') return;
+
         totalCreditsValue += credit;
         totalGradePointsValue += credit * gradeSuggestions[grade].point;
     });
@@ -199,7 +213,7 @@ function loadTableData() {
         newRow.innerHTML = `
             <td>${item.subject}</td>
             <td>${item.credit}</td>
-            <td>${item.grade}</td>
+            <td class="editable-grade">${item.grade}</td>
             <td><button class="remove-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
             </svg></button></td>
@@ -231,5 +245,56 @@ subjectList.addEventListener('click', (event) => {
             row.remove();
             saveTableData();
         }
+    }
+});
+
+const gradePointsTable = document.getElementById('gradePointsTable');
+const gradePoints = [
+    { grade: "A+", point: 4.0 },
+    { grade: "A", point: 4.0 },
+    { grade: "A-", point: 3.7 },
+    { grade: "B+", point: 3.3 },
+    { grade: "B", point: 3.0 },
+    { grade: "B-", point: 2.7 },
+    { grade: "C+", point: 2.3 },
+    { grade: "C", point: 2.0 },
+    { grade: "C-", point: 1.7 },
+    { grade: "D+", point: 1.3 },
+    { grade: "D", point: 1.0 },
+    { grade: "D-", point: 0.7 },
+    { grade: "F", point: 0.0 }
+];
+
+gradePoints.forEach(item => {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${item.grade}</td><td>${item.point}</td>`;
+    gradePointsTable.appendChild(row);
+});
+
+// Allow editing of grades in the table
+subjectList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('editable-grade')) {
+        const gradeCell = event.target;
+        const currentGrade = gradeCell.textContent.trim();
+        const input = document.createElement('input');
+        input.value = currentGrade;
+        input.classList.add('grade-input');
+        gradeCell.innerHTML = '';
+        gradeCell.appendChild(input);
+        input.focus();
+        input.addEventListener('blur', () => {
+            const newGrade = input.value.trim().toUpperCase();
+            if (gradeSuggestions[newGrade]) {
+                gradeCell.textContent = newGrade;
+                saveTableData();
+            } else {
+                gradeCell.textContent = currentGrade;
+            }
+        });
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                input.blur();
+            }
+        });
     }
 });
