@@ -249,25 +249,9 @@ subjectList.addEventListener('click', (event) => {
 });
 
 const gradePointsTable = document.getElementById('gradePointsTable');
-const gradePoints = [
-    { grade: "A+", point: 4.0 },
-    { grade: "A", point: 4.0 },
-    { grade: "A-", point: 3.7 },
-    { grade: "B+", point: 3.3 },
-    { grade: "B", point: 3.0 },
-    { grade: "B-", point: 2.7 },
-    { grade: "C+", point: 2.3 },
-    { grade: "C", point: 2.0 },
-    { grade: "C-", point: 1.7 },
-    { grade: "D+", point: 1.3 },
-    { grade: "D", point: 1.0 },
-    { grade: "D-", point: 0.7 },
-    { grade: "F", point: 0.0 }
-];
-
-gradePoints.forEach(item => {
+Object.keys(gradeSuggestions).map(grade => {
     const row = document.createElement('tr');
-    row.innerHTML = `<td>${item.grade}</td><td>${item.point}</td>`;
+    row.innerHTML = `<td>${grade}</td><td>${gradeSuggestions[grade].point}</td>`;
     gradePointsTable.appendChild(row);
 });
 
